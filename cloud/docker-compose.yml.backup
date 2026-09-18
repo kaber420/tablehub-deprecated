@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: tablehub-cloud-db
+    environment:
+      POSTGRES_USER: tablehub
+      POSTGRES_PASSWORD: tablehub
+      POSTGRES_DB: zitadel
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tablehub -d zitadel"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  zitadel:
+    image: ghcr.io/zitadel/zitadel:latest
+    container_name: tablehub-zitadel
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8088:8088"
+    environment:
+      - ZITADEL_MASTERKEY=a-32-byte-long-secret-key-here!!
+      - ZITADEL_EXTERNALSECURE=false
+      - ZITADEL_DEFAULTINSTANCE_FEATURES_LOGINV2_REQUIRED=false
+      - ZITADEL_DEFAULTINSTANCE_FEATURES_LOGINV2_ACTIVE=false
+    command: start-from-init --masterkey "a-32-byte-long-secret-key-here!!" --tlsMode disabled --config /zitadel-config.yaml
+    volumes:
+      - ./zitadel-config.yaml:/zitadel-config.yaml:ro
+      - ./machinekey:/machinekey
+
+volumes:
+  pgdata:

@@ -1,0 +1,7 @@
+{
+  "hub_id": "91eb42b5-7922-4eeb-b8f2-553da2d75405",
+  "organization_id": "049e15c7-d1ad-4411-8007-63e3f0887c0c",
+  "cloud_url": "ws://localhost:9000/ws",
+  "bootstrap_token": "ce53c8228aa1ff7cf9c50b383e99bb096f88dabe073a23c20b4c872bc25ae041",
+  "pos_provider": "TastyIgniter"
+}

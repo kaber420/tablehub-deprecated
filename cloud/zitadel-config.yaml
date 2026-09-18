@@ -1,0 +1,21 @@
+Port: 8088
+ExternalSecure: false
+ExternalPort: 8088
+
+Database:
+  postgres:
+    Host: postgres
+    Port: 5432
+    Database: zitadel
+    User:
+      Username: tablehub
+      Password: tablehub
+      SSL:
+        Mode: disable
+    Admin:
+      Username: tablehub
+      Password: tablehub
+      SSL:
+        Mode: disable
+
+

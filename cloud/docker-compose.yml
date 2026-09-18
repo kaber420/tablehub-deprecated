@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: tablehub-cloud-db
+    environment:
+      POSTGRES_USER: tablehub
+      POSTGRES_PASSWORD: tablehub
+      POSTGRES_DB: logto
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tablehub -d logto"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  logto:
+    image: ghcr.io/logto-io/logto:latest
+    container_name: tablehub-logto
+    entrypoint: ["/bin/sh", "-c", "npx @logto/cli db seed || true && npm start"]
+    ports:
+      - "3002:3002"
+      - "3005:3005"
+    environment:
+      - PORT=3002
+      - ADMIN_PORT=3005
+      - DB_URL=postgresql://tablehub:tablehub@postgres:5432/logto
+      - ENDPOINT=http://localhost:3002
+      - ADMIN_ENDPOINT=http://localhost:3005
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  nats:
+    image: nats:alpine
+    container_name: tablehub-cloud-nats
+    command: ["-js"]
+    ports:
+      - "4223:4222"
+      - "8223:8222"
+
+volumes:
+  pgdata:
+
+
+
+
+

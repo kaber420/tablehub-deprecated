@@ -1,0 +1,312 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Common variables */
+  --bg-color: #0f1115;
+  --text-color: #e2e8f0;
+  --text-muted: #94a3b8;
+  --accent-color: #3b82f6;
+  --accent-hover: #60a5fa;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: background 0.3s ease;
+}
+
+/* Glassmorphism Theme (Default) */
+body.theme-glass {
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.08), transparent 25%);
+  --panel-bg: rgba(30, 41, 59, 0.4);
+  --panel-border: 1px solid rgba(255, 255, 255, 0.08);
+  --panel-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --panel-shadow-hover: 0 12px 40px 0 rgba(0, 0, 0, 0.45);
+  --panel-blur: blur(12px);
+  --dock-bg: rgba(15, 23, 42, 0.6);
+  --dock-border: 1px solid rgba(255, 255, 255, 0.08);
+  --dock-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  --button-hover-bg: rgba(255,255,255,0.1);
+  --button-active-bg: rgba(59, 130, 246, 0.2);
+  --toggle-bg: rgba(255, 255, 255, 0.1);
+  --toggle-border: 1px solid rgba(255,255,255,0.2);
+  --toggle-shadow: none;
+  --toggle-thumb-bg: #9ca3af;
+  --toggle-thumb-shadow: none;
+  
+  --primary-btn-bg: var(--accent-color);
+  --primary-btn-color: white;
+  --primary-btn-shadow: none;
+  --primary-btn-hover-bg: var(--accent-hover);
+  --primary-btn-hover-transform: translateY(-2px);
+  --primary-btn-hover-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  --primary-btn-active-shadow: none;
+
+  /* Global Inputs */
+  --input-bg: rgba(0,0,0,0.2);
+  --input-border: 1px solid rgba(255,255,255,0.1);
+  --input-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+  --input-color: var(--text-color);
+
+  /* Inset Panels */
+  --panel-inset-bg: rgba(0, 0, 0, 0.25);
+  --panel-inset-border: 1px solid rgba(255, 255, 255, 0.05);
+  --panel-inset-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Dark Neumorphism Theme */
+body.theme-neumorph {
+  background-color: #1a1c23; /* Solid matte background */
+  background-image: none;
+  --panel-bg: #1a1c23;
+  --panel-border: 1px solid rgba(255,255,255,0.02);
+  --panel-shadow: 6px 6px 12px #121419, -6px -6px 12px #22242d;
+  --panel-shadow-hover: 8px 8px 16px #121419, -8px -8px 16px #22242d;
+  --panel-blur: none;
+  --dock-bg: #1a1c23;
+  --dock-border: 1px solid rgba(255,255,255,0.02);
+  --dock-shadow: 8px 8px 16px #121419, -8px -8px 16px #22242d;
+  --button-hover-bg: #1a1c23;
+  --button-active-bg: #1a1c23;
+  --button-hover-shadow: inset 2px 2px 5px #121419, inset -2px -2px 5px #22242d;
+  --toggle-bg: #1a1c23;
+  --toggle-border: none;
+  --toggle-shadow: inset 3px 3px 6px #121419, inset -3px -3px 6px #22242d;
+  --toggle-thumb-bg: #4b5563;
+  --toggle-thumb-shadow: 2px 2px 4px #121419, -2px -2px 4px #22242d;
+  
+  --primary-btn-bg: #1a1c23;
+  --primary-btn-color: var(--accent-color);
+  --primary-btn-shadow: 4px 4px 8px #121419, -4px -4px 8px #22242d;
+  --primary-btn-hover-bg: #1a1c23;
+  --primary-btn-hover-transform: translateY(0);
+  --primary-btn-hover-shadow: 6px 6px 12px #121419, -6px -6px 12px #22242d;
+  --primary-btn-active-shadow: inset 4px 4px 8px #121419, inset -4px -4px 8px #22242d;
+
+  /* Global Inputs */
+  --input-bg: #1a1c23;
+  --input-border: 1px solid rgba(255,255,255,0.02);
+  --input-shadow: inset 4px 4px 8px #121419, inset -4px -4px 8px #22242d;
+  --input-color: var(--text-color);
+
+  /* Inset Panels */
+  --panel-inset-bg: #15161c;
+  --panel-inset-border: 1px solid rgba(255, 255, 255, 0.01);
+  --panel-inset-shadow: inset 4px 4px 8px #0f1014, inset -4px -4px 8px #21232c;
+}
+
+.panel {
+  background: var(--panel-bg);
+  backdrop-filter: var(--panel-blur);
+  -webkit-backdrop-filter: var(--panel-blur);
+  border: var(--panel-border);
+  border-radius: 16px;
+  box-shadow: var(--panel-shadow);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.panel:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--panel-shadow-hover);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  color: var(--text-muted);
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tag.online {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: var(--success);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.tag.offline {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* Global Reusable Inputs (Neumorphic/Glass) */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+  background: var(--input-bg);
+  border: var(--input-border);
+  box-shadow: var(--input-shadow);
+  color: var(--input-color);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent-color);
+}
+
+/* Override default browser autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 50px var(--input-bg) inset !important;
+  -webkit-text-fill-color: var(--input-color) !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Neumorphic Inset Panel */
+.panel-inset {
+  background: var(--panel-inset-bg);
+  border: var(--panel-inset-border);
+  box-shadow: var(--panel-inset-shadow);
+  border-radius: 12px;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Indicators and LEDs */
+.led-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+}
+
+.led-indicator::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  animation: led-pulse 2s infinite ease-in-out;
+}
+
+.led-online {
+  background-color: var(--success);
+}
+.led-online::after {
+  box-shadow: 0 0 8px var(--success);
+  background-color: var(--success);
+}
+
+.led-offline {
+  background-color: var(--danger);
+}
+.led-offline::after {
+  box-shadow: 0 0 8px var(--danger);
+  background-color: var(--danger);
+}
+
+.led-warning {
+  background-color: var(--warning);
+}
+.led-warning::after {
+  box-shadow: 0 0 8px var(--warning);
+  background-color: var(--warning);
+}
+
+.led-pending {
+  background-color: var(--accent-color);
+}
+.led-pending::after {
+  box-shadow: 0 0 8px var(--accent-color);
+  background-color: var(--accent-color);
+}
+
+@keyframes led-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6); opacity: 0.2; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* KPI Cards Layout */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.kpi-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.kpi-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+}
+
+.kpi-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.kpi-value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #f8fafc;
+}
+
+.kpi-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Accent icons colors using soft overlays */
+.icon-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+.icon-green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+.icon-red { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+.icon-orange { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+
